@@ -70,7 +70,7 @@ void Chat::signUp()
     }
     User user = User(login, password, name);
     userList_.push_back(user);
-    currentUser_ = std::make_shared<User>([&] User );
+    currentUser_ = std::make_shared<User>( user );
 }
 
 void Chat::ShowAllUsersName() const
@@ -163,7 +163,7 @@ void Chat::addMessage()
     std::cin >> to;
     std::cout << "text:                  ";
     std::cin.ignore();
-    getline([&] to , [&] text;);
+    getline(std::cin >> to,  text);
     if (!(to == "all" || getUserByName(to)))
     {
         std::cout << "error send message: can not finde" << to << std::endl;
@@ -171,11 +171,11 @@ void Chat::addMessage()
     }
     if (to == "all")
     {
-        messageList_.push_back (Message(from: currentUser_->getUserLogin(), to : "all", text;));
+        messageList_.push_back (Message( currentUser_->getUserLogin(), "all", text));
     }
     else
     {
-        messageList_.push_back (Message(from: currentUser_->getUserLogin(), to : getUserByName(to)->getUserLogin(), text; ));
+        messageList_.push_back (Message( currentUser_->getUserLogin(), getUserByName(to)->getUserLogin(), text ));
     }
 }
 
@@ -183,7 +183,7 @@ void Chat::showChat() const
 {
     std::string from, to;
     std::cout << "-----------×ÀÒ-----------" << std::endl;
-    for (auto& mess : const Message& : messageList_)
+    for (auto& mess :  messageList_)
     {
         if (currentUser_->getUserLogin() == mess.getFrom() || currentUser_->getUserLogin() == mess.getTo() || mess.getTo() == "all")
         {
